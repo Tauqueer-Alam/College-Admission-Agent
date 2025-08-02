@@ -45,6 +45,3 @@ and receive accurate, real-time responses based on official institutional data.
 4. Response is shown with the context from institutional policy documents.
 
 ---
-
-## 📂 Project Structure
-
