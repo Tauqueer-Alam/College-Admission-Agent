@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Admission Agent</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #1d3557;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #1d3557;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #response {
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>College Admission Agent</h1>
+    <input type="text" id="question" placeholder="Ask a question about admissions...">
+    <button onclick="askQuestion()">Ask</button>
+    <div id="response"></div>
+  </div>
+
+  <script>
+    async function askQuestion() {
+      const question = document.getElementById("question").value;
+      const responseBox = document.getElementById("response");
+      responseBox.innerHTML = "Loading...";
+
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await res.json();
+
+      if (data.answer) {
+        responseBox.innerHTML = `<strong>Answer:</strong> ${data.answer}`;
+      } else {
+        responseBox.innerHTML = `<strong>Error:</strong> ${data.error}`;
+      }
+    }
+  </script>
+</body>
+</html>
